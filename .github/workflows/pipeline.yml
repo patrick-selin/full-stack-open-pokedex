@@ -40,6 +40,7 @@ jobs:
       #     wait-on: http://localhost:5005
       
   deploy:
+    if: ${{ github.event_name == 'push' }}
     name: Deploy app to Fly.io
     runs-on: ubuntu-latest
     concurrency: deploy-group   
