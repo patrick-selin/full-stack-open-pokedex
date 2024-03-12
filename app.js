@@ -11,7 +11,7 @@ app.get("/version", (req, res) => {
   res.send("1.1"); // change this string to ensure a new version deployed
 });
 
-app.listen(PORT, () => {
-  this_causes_error;
-  console.log(`Server started on port: ${PORT}`);
-});
+app.listen(PORT + 1, () => {
+  // eslint-disable-next-line no-console
+  console.log(`server started on port ${PORT}`)
+})
