@@ -52,7 +52,18 @@ jobs:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
       #  discord   
-
+      - name: Discord notification | Succesfull Deployment
+        if: success()
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          severity: info
+          color: '206694'
+          details: |
+            New version was deployed successfully!
+            Commit: ${{ github.sha }}
+            Repository: ${{ github.repository }}
+            username: 'GitHub Actions'
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 
 
   tag_relase:
