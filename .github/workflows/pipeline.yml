@@ -32,12 +32,12 @@ jobs:
       # E2E test working locally, driver issue in GH actions?
       # or bug in my yml? Lots of complaining on GH cypress issues
       #
-      # - name: e2e tests
-      #   uses: cypress-io/github-action@v6
-      #   with:
-      #     command: npm run test:e2e
-      #     start: npm run start-prod
-      #     wait-on: http://localhost:5005
+      - name: e2e tests
+        uses: cypress-io/github-action@v6
+        with:
+          command: npm run test:e2e
+          start: npm run start-prod
+          wait-on: http://localhost:5001
 
   deploy:
     name: Deploy app to Fly.io
