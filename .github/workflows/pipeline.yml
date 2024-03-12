@@ -69,7 +69,7 @@ jobs:
         with:
           severity: error
           details: |
-            Build Failed!
+            Build Failed!!
             Commit: ${{ github.sha }}
             Repository: ${{ github.repository }}
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}  
