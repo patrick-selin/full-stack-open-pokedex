@@ -37,9 +37,9 @@ jobs:
       #     wait-on: http://localhost:5005
       
   deploy:
-    name: Deploy app
+    name: Deploy app to Fly.io
     runs-on: ubuntu-latest
-    concurrency: deploy-group    # optional: ensure only one action runs at a time
+    concurrency: deploy-group   
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
