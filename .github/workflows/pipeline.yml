@@ -27,7 +27,7 @@ jobs:
         run: npm run test
       
       # E2E test working locally, driver issue in GH actions?
-      # or bug in my yml?
+      # or bug in my yml? Lots of complaining on GH cypress issues
       #
       # - name: e2e tests
       #   uses: cypress-io/github-action@v6
