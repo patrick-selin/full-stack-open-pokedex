@@ -53,30 +53,33 @@ jobs:
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
-      #  discord   
-      - name: Discord notification | Succesfull Deployment
-        if: ${{ steps.deploy.outcome == 'success' }}
-        uses: rjstone/discord-webhook-notify@v1.0.4
+      #  discord
+      - name: Discord notification success deployment
+        if: ${{ success() && steps.check_commit_message.outputs.skip != 'true' }}
+        uses: rjstone/discord-webhook-notify@v1
         with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
           severity: info
-          color: '206694'
-          details: |
-            New version was deployed successfully!
-            Commit: ${{ github.sha }}
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          details: Deployment was successful
+      - name: Discord notification failed deployment
+        if: ${{ failure() && steps.check_commit_message.outputs.skip != 'true' }}
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          severity: error
+          details: Deployment failed!!!!!
 
 
   tag_relase:
     needs: [simple_deployment_pipeline, deploy]
     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
-  
-    runs-on: ubuntu-22.04 
+
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-    
+
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@a2c70ae13a881faf2b4953baaa9e49731997ab36
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
-
